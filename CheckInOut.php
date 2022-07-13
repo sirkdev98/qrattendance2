@@ -10,12 +10,12 @@ include 'include/connection.php';
 
     if(isset($_POST['voterID'])){
     	
-        $eventID = $eventIDget;
-        $voterID =$_POST['voterID'];
+   
+        $empid =$_POST['voterID'];
 		$date = date('Y-m-d');
 		$time = date('H:i:s A');
 
-		$sql = "SELECT * FROM attendance WHERE voterID = '$voterID' AND	eventID = '$eventID'";
+		$sql = "SELECT * FROM tbl_logs WHERE empid = '$empid' and logdate = CURDATE()";
 		$query = $conn->query($sql);
 
 		if($query->num_rows < 1){

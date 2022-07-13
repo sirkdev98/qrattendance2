@@ -1,7 +1,6 @@
 <?php session_start();
 
-
-
+ include 'include/connection.php';
 
 if(isset($_SESSION['username'])){
     
@@ -105,22 +104,38 @@ if(isset($_SESSION['username'])){
                     </thead>
                     <tbody>
                         <?php
-                       include 'include/connection.php';
+                      
                        
 						$date = date('Y-m-d');
                         if($conn->connect_error){
                             die("Connection failed" .$conn->connect_error);
                         }
-                           $sql ="SELECT * FROM tbl_logs where status!='' and eventID	= '$eventID' limit 15";
+                           $sql =
+                           "SELECT
+  tbl_employees.empid,
+  tbl_employees.fname,
+  tbl_employees.mname, 
+  tbl_employees.lname, 
+  tbl_employees.position,
+  tbl_logs.logdate,
+  tbl_logs.timein,
+  tbl_logs.timeout,
+  tbl_logs.siteid,
+  tbl_logs.empid
+
+
+FROM tbl_logs
+JOIN tbl_employees
+ON tbl_logs.empid = tbl_employees.empid WHERE tbl_logs.logdate= CURDATE()";
                            $query = $conn->query($sql);
                            while ($row = $query->fetch_assoc()){
                         ?>
                             <tr>
-                                <td><?php echo $row[''].', '.$row['fname'].' '.$row['mname'];?></td>
-                                <td><?php echo $row['voterID'];?></td>
+                                <td><?php echo $row['lname'].', '.$row['fname'].' '.$row['mname'];?></td>
                                 <td><?php echo $row['timein'];?></td>
-                                <td><?php echo $row['barangay'];?></td>
-                                <td><?php echo $row['status'];?></td>
+                                <td><?php echo $row['timeout'];?></td>
+                                <td><?php echo $row['logdate'];?></td>
+                                <td><?php echo $row['position'];?></td>
                             </tr>
                         <?php
                         }
