@@ -503,6 +503,8 @@ if(isset($_SESSION['username'])){
 									<td><?php echo $position; ?></td>
 									<td><?php echo $site; ?></td>
 									<td>
+										<a href="profile.php?<?php echo $empid; ?>"><button type="button" class="btn btn-info"><i class="icon-copy fa fa-user" aria-hidden="true"></i></button></a>	
+
 										<a href="#edit<?php echo $empid; ?>" data-toggle="modal"><button type="button" class="btn btn-warning"><i class="icon-copy fa fa-edit" aria-hidden="true"></i></button></a>
 
 										<button type="button" class="btn btn-danger"><i class="icon-copy fa fa-trash" aria-hidden="true"></i></button>
