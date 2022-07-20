@@ -2,25 +2,96 @@
 
  date_default_timezone_set('Asia/Manila');
     session_start();
-  $eventIDget=$_SESSION['eventID'];
+
 
 include 'include/connection.php';
 
 
+$emplogid = $_POST['employeeID'];
 
-    if(isset($_POST['voterID'])){
+    if(isset($_POST['employeeID'])){
     	
    
-        $empid =$_POST['voterID'];
+        $empid =$_POST['employeeID'];
 		$date = date('Y-m-d');
 		$time = date('H:i:s A');
+		//check for logs today
 
-		$sql = "SELECT * FROM tbl_logs WHERE empid = '$empid' and logdate = CURDATE()";
-		$query = $conn->query($sql);
+		$employeeexist = "SELECT * FROM `tbl_employees` WHERE empid = '$emplogid'";
+		$empcheckk = $conn->query($employeeexist);
 
-		if($query->num_rows < 1){
-			$_SESSION['error'] = 'Cannot find QRCode number '.$voterID." and ".$eventID;
-		}else{
+		if($empcheckk->num_rows < 1){
+			$_SESSION['error'] = $empid.' Doesnt Exist in employee Database'; 
+
+		}//if employee exist proceed to this else to insert log for today
+		else{
+		$sql = "SELECT * FROM tbl_logs WHERE empid = '$emplogid' and logdate = CURDATE()";
+		$logcheck = $conn->query($sql);
+
+		if($logcheck->num_rows < 1){
+		//add logs if no log yet
+		$sqladdlog = "INSERT INTO `tbl_logs` (`id`, `timein`, `timeout`, `logdate`, `empid`, `siteid`) VALUES (NULL, '$time', '', '$date', '$emplogid', '')";
+		
+		if($conn->query($sqladdlog) ===TRUE){
+					 $_SESSION['success'] = 'Successfuly Time In: '.$emplogid;
+		}
+		}//end no log yet for today
+		elseif ($logcheck->num_rows != 0) {
+			// code...
+		
+		$sqlcheckloginandout = "SELECT * FROM tbl_logs WHERE empid = '$emplogid' and logdate = CURDATE() and timeout ='0000-00-00 00:00:00'";
+		$checkloginandout = $conn->query($sqlcheckloginandout);
+
+			if($checkloginandout->num_rows !=0){
+
+				$row = $logcheck->fetch_assoc();
+			$logid = $row['id'];
+
+		$sqllogout = "UPDATE `tbl_logs` SET `timeout` = '$time' WHERE `tbl_logs`.`id` = '$logid'";
+		
+		if($conn->query($sqllogout) ===TRUE){
+
+ 				$_SESSION['success'] = 'Successfuly Timed Out: '.$empid;
+		}
+
+}
+else{  $_SESSION['error'] = 'Already Timed in and Out: '.$empid; }
+
+
+}
+	}	//update time out if no out yet
+	
+	
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+		/*else{
 				$row = $query->fetch_assoc();
 				$id = $row['voterID'];
 				$sql ="SELECT * FROM attendance WHERE voterID = '$voterID' AND status='logged' AND timein!='' AND eventID = '$eventID'";
@@ -37,12 +108,12 @@ include 'include/connection.php';
 			  $_SESSION['error'] = $conn->error;
 		   }	
 		}
-	}
+	}*/
 
-	}else{
+	/*}else{
 		$_SESSION['error'] = 'Please scan your QR Code number';
-}
-header("location: qr.php?id=$eventID");
-	   echo $eventid;
+}*/
+header("location: qr.php");
+
 $conn->close();
 ?>

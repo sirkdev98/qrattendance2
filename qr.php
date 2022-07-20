@@ -87,19 +87,20 @@ if(isset($_SESSION['username'])){
                 <form action="CheckInOut.php" method="post" class="form-horizontal" style="border-radius: 5px;padding:10px;background:#fff;" id="divvideo">
 
                      <i class="glyphicon glyphicon-qrcode"></i> <label>SCAN QR CODE</label> <p id="time"></p>
-                    <input type="text" name="voterID" id="text" placeholder="scan qrcode" class="form-control"   autofocus>
+                    <input type="text" name="employeeID" id="text" placeholder="scan qrcode" class="form-control"   autofocus>
                      
                 </form>
               
 				<div style="border-radius: 5px;padding:10px;background:#fff;" id="divvideo">
                   <table id="example1" class="table table-bordered">
-                    <thead>
+                   <thead>
                         <tr>
+                       	<td>ID</td>
 						<td>NAME</td>
-						<td>VOTER ID</td>
-						<td>TIME IN</td>
-						<td>Barangay</td>
-						<td>Status</td>
+						<td>Time in</td>
+						<td>TIME out</td>
+						<td>Log date</td>
+						<td>Position</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -131,6 +132,7 @@ ON tbl_logs.empid = tbl_employees.empid WHERE tbl_logs.logdate= CURDATE()";
                            while ($row = $query->fetch_assoc()){
                         ?>
                             <tr>
+                            	<td><?php echo $row['empid'];?></td>
                                 <td><?php echo $row['lname'].', '.$row['fname'].' '.$row['mname'];?></td>
                                 <td><?php echo $row['timein'];?></td>
                                 <td><?php echo $row['timeout'];?></td>
