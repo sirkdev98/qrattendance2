@@ -1,4 +1,3 @@
-
 <?php session_start();
 
 include 'include/connection.php';
@@ -21,12 +20,13 @@ if(isset($_SESSION['username'])){
 }
 
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<!-- Basic Page Info -->
 	<meta charset="utf-8">
-	<title>DeskApp - Bootstrap Admin Dashboard HTML Template</title>
+	<title>Downloads</title>
 
 	<!-- Site favicon -->
 	<link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">
@@ -41,15 +41,22 @@ if(isset($_SESSION['username'])){
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="vendors/styles/core.css">
 	<link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css">
-	<link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css">
-	<link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css">
+	<link rel="stylesheet" type="text/css" href="src/plugins/jquery-asColorPicker/dist/css/asColorPicker.css">
 	<link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
 
+
 	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-119386393-1');
+	</script>
 </head>
 <body>
 	
-
 
 	<div class="header">
 		<div class="header-left">
@@ -172,7 +179,9 @@ if(isset($_SESSION['username'])){
 					</div>
 				</div>
 			</div>
-			
+			<div class="github-link">
+				<a href="https://github.com/dropways/deskapp" target="_blank"><img src="vendors/images/github.svg" alt=""></a>
+			</div>
 		</div>
 	</div>
 
@@ -251,7 +260,7 @@ if(isset($_SESSION['username'])){
 		</div>
 	</div>
 
-	<div class="left-side-bar">
+<div class="left-side-bar">
 		<div class="brand-logo">
 			<a href="index.html">
 				<img src="vendors/images/deskapp-logo.svg" alt="" class="dark-logo">
@@ -262,9 +271,9 @@ if(isset($_SESSION['username'])){
 			</div>
 		</div>
 		<div class="menu-block customscroll">
-			<div class="sidebar-menu">
+			<div class="sidebar-menu">	
 				<ul id="accordion-menu">
-				<li>
+					<li>
 					<a href="qr.php" class="dropdown-toggle no-arrow">
 							<span class="micon fa fa-qrcode"></span><span class="mtext">Scan QR</span>
 						</a>
@@ -273,13 +282,17 @@ if(isset($_SESSION['username'])){
 						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
 						</a>
+
 						<ul class="submenu">
 						
 							<li><a href="index.php">Dashboard</a></li>
-							<li><a href="downloadables.php">Downloadables</a></li>
+
+								<li><a href="downloadables.php">Downloadables</a></li>
 						</ul>
-
-
+						
+						
+						
+						
 					</li>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
@@ -307,269 +320,87 @@ if(isset($_SESSION['username'])){
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
-								<h4>Site Record</h4>
+								<h4>DOWNLOADABLES</h4>
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="index.html">Add Data</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Sites</li>
+									<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Downloadables</li>
 								</ol>
 							</nav>
 						</div>
 						
-					</div>
 				</div>
-				<!-- Simple Datatable start -->
-				<div class="card-box mb-30">
-					<div class="pd-20">
-						<h4 class="text-blue h4">Site Data Table</h4>
-					<a href="#ADD" data-toggle="modal"><button type="button" class="btn btn-success	">ADD SITE</button></a>
-					</div>
-					<div class="pb-20">
-						<table class="data-table table stripe nowrap">
-							<thead>
-								<tr>
-									<th>ID</th>
-									<th>Site Name</th>
-									<th>Location</th>
-									<th>Remarks</th>
-									
-									<th class="datatable-nosort">Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php	$sql ="SELECT * FROM `tbl_site`";
-                           $query = $conn->query($sql);
-                           while ($row = $query->fetch_assoc()){
 
-                         $siteid = $row['siteid'];
-                         $sitename =  $row['sitename'];
-                         $location =  $row['location'];
-                         $remarks =  $row['remarks'];
-                         
-
-                     ?>
-								<tr>
-									<th><?php  echo	$siteid; ?></th>
-									<th><?php  echo	$sitename; ?></th>
-									<th><?php  echo	$location; ?></th>
-									<th><?php  echo	$remarks; ?></th>
-									<td>
-										<a href="#edit<?php echo $siteid; ?>" data-toggle="modal"><button type="button" class="btn btn-warning"><i class="icon-copy fa fa-edit" aria-hidden="true"></i></button></a>
-									</td>
-								</tr>
-																</tr>
-
-
-
-
-
-
-	<div class="col-md-4 col-sm-12 mb-30">
-						
-							<div class="modal fade bs-example-modal-lg" id="edit<?php echo $siteid; ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-								<div class="modal-dialog modal-lg modal-dialog-centered">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h4 class="modal-title" id="myLargeModalLabel">Edit Site</h4>
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-										</div>
-										<div class="modal-body">
-											<div class="pd-20 card-box mb-30">
-					<div class="clearfix">
+				<div class="pd-20 card-box mb-30">
+					<div class="clearfix mb-20">
 						<div class="pull-left">
-							
-							
+							<h4 class="text-blue h4">Download Log records</h4>
 						</div>
 					</div>
-					<form method="post">
-						<div class="row">
-							<div class="col-md-4 col-sm-12">
-								
-									<label>Site Name</label>
-									<input class="form-control" type="text" name="editid" placeholder="Site Name" required value="<?php echo $siteid; ?>" hidden>
-									<input class="form-control" type="text" name="sitename" placeholder="Site Name" required value="<?php echo $sitename; ?>">
-								
-							</div>
+					<div class="row">
 						<div class="col-md-4 col-sm-12">
-								
-									<label>Location</label>
-									<input class="form-control" type="text" name="location" placeholder="Location" value="<?php echo $location; ?>">
-								
-							</div>
-						<div class="col-md-4 col-sm-12">
-								
-									<label>Remarks</label>
-									<input class="form-control" type="text" name="remarks" placeholder="Remarks" value="<?php echo $remarks; ?>">
-								
-							</div>
-						</div>
-
-							
-					
-
-				
-				</div>
-
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-											<button type="submit" name="saveedit" class="btn btn-primary">Save</button>
-										</div>
-									</div>
+							<form method="post" action="exportexcel.php">
+								<div class="form-group">
+									<label>FROM</label>
+									<input class="form-control date-picker" placeholder="Select Date" type="text" name="startDatePicker" required>
 								</div>
-							</div>
-						</div>	</form>
-				
-</div></div>
-
-
-<?php }?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-							</tbody>
-						</table>
-					</div>
-
-				</div>
-
-
-
-<?php 
-						if (isset($_POST['saveedit'])) {
-							$editid = $_POST['editid'];			
-							$sitename = $_POST['sitename'];
-							$location = $_POST['location'];
-							$remarks = $_POST['remarks'];
+								
 							
-
-							$sql = "UPDATE `tbl_site` SET `sitename` = '$sitename', `location` = '$location', `remarks` = '$remarks' WHERE `tbl_site`.`siteid` = $editid";
-					if ($conn->query($sql) === TRUE) {  
-
-			echo "<script type='text/javascript'>alert(\"Successfully Edited \")</script>";
-           echo "<script>window.location.href='site.php'</script>";
-
-						}
-						}
-
-						?>
-
-
-	<div class="col-md-4 col-sm-12 mb-30">
 						
-							<div class="modal fade bs-example-modal-lg" id="ADD" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-								<div class="modal-dialog modal-lg modal-dialog-centered">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h4 class="modal-title" id="myLargeModalLabel">Add Site</h4>
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-										</div>
-										<div class="modal-body">
-											<div class="pd-20 card-box mb-30">
-					<div class="clearfix">
-						<div class="pull-left">
-							
-							
+						</div>
+					<div class="col-md-4 col-sm-12">
+						<div class="form-group">
+									<label>TO</label>
+									<input class="form-control date-picker" placeholder="Select Date" type="text" name="endDatePicker" required>
+								</div>
+						</div>
+					<div class="col-md-4 col-sm-12">
+						<div class="form-group">
+									<label>SITE</label>
+										<select class="form-control" data-size="5" data-style="btn-outline-info" name="site" required>
+										<option selected disabled>Select Here</option>
+										  <?php
+                      $sql = "SELECT `sitename`,`siteid` FROM tbl_site";
+                      $result = $conn->query($sql);
+                      if($result->num_rows> 0){
+                         $options= mysqli_fetch_all($result, MYSQLI_ASSOC);
+                           }
+                           foreach ($options as $option) {
+ 															 ?>
+   								<option value="<?php echo $option['siteid']; ?>"><?php echo $option['sitename']; ?> </option>
+    							<?php } ?>
+							</select>
+								</div>
 						</div>
 					</div>
-					<form method="post">
-						<div class="row">
-							<div class="col-md-4 col-sm-12">
+							<div class="row">
+								<div class="col-md-4 col-sm-12">
+					
+								<div class="form-group">
+									<BUTTON class="btn btn-primary" type="submit" name="export"><li class="fa fa-download">  Download</li></BUTTON>
+								</div>
 								
-									<label>Site Name</label>
-									<input class="form-control" type="text" name="sitename" placeholder="Site Name" required>
-								
-							</div>
-						<div class="col-md-4 col-sm-12">
-								
-									<label>Location</label>
-									<input class="form-control" type="text" name="location" placeholder="Location" required>
-								
-							</div>
-						<div class="col-md-4 col-sm-12">
-								
-									<label>Remarks</label>
-									<input class="form-control" type="text" name="remarks" placeholder="Remarks">
-								
-							</div>
+							
+							</form>
 						</div>
 
-							
-					
-
-				
-				</div>
-
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-											<button type="submit" name="addsite" class="btn btn-primary">Add Site</button>
-										</div>
-									</div>
-								</div>
 							</div>
-						</div>	</form>
+
+
+
+				</div>
 				
-</div></div>
-				<!-- Simple Datatable End -->
-
-<?php
-						if (isset($_POST['addsite'])) {
-
-							$sitename = $_POST['sitename'];
-							$location = $_POST['location'];
-							$remarks = $_POST['remarks'];
-							
-
-							$sql = "INSERT INTO `tbl_site` (`siteid`, `sitename`, `location`, `remarks`) VALUES (NULL, '$sitename', '$location', '$remarks')";
-					if ($conn->query($sql) === TRUE) {  
-
-			echo "<script type='text/javascript'>alert(\"Successfully Added \")</script>";
-           echo "<script>window.location.href='sites.php'</script>";
-
-						}
-						}
-
-						?>
-
-
-
-		</div>
+			
 	</div>
 	<!-- js -->
 	<script src="vendors/scripts/core.js"></script>
 	<script src="vendors/scripts/script.min.js"></script>
 	<script src="vendors/scripts/process.js"></script>
 	<script src="vendors/scripts/layout-settings.js"></script>
-	<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-	<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-	<!-- buttons for Export datatable -->
-	<script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
-	<script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-	<script src="src/plugins/datatables/js/buttons.print.min.js"></script>
-	<script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
-	<script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
-	<script src="src/plugins/datatables/js/pdfmake.min.js"></script>
-	<script src="src/plugins/datatables/js/vfs_fonts.js"></script>
-	<!-- Datatable Setting js -->
-	<script src="vendors/scripts/datatable-setting.js"></script></body>
+	<script src="src/plugins/jquery-asColor/dist/jquery-asColor.js"></script>
+	<script src="src/plugins/jquery-asGradient/dist/jquery-asGradient.js"></script>
+	<script src="src/plugins/jquery-asColorPicker/jquery-asColorPicker.js"></script>
+	<script src="vendors/scripts/colorpicker.js"></script>
+</body>
 </html>

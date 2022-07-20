@@ -25,12 +25,26 @@ $emplogid = $_POST['employeeID'];
 
 		}//if employee exist proceed to this else to insert log for today
 		else{
+				  while ($row = $empcheckk->fetch_assoc()){
+
+                         $empid = $row['empid'];
+                         $fname =  $row['fname'];
+                         $mname =  $row['mname'];
+                         $lname =  $row['lname'];
+                         $gender =  $row['gender'];
+                         $bday =  $row['bday'];
+                         $position =  $row['position'];
+                         $site =  $row['site'];
+
+}
+
+
 		$sql = "SELECT * FROM tbl_logs WHERE empid = '$emplogid' and logdate = CURDATE()";
 		$logcheck = $conn->query($sql);
 
 		if($logcheck->num_rows < 1){
 		//add logs if no log yet
-		$sqladdlog = "INSERT INTO `tbl_logs` (`id`, `timein`, `timeout`, `logdate`, `empid`, `siteid`) VALUES (NULL, '$time', '', '$date', '$emplogid', '')";
+		$sqladdlog = "INSERT INTO `tbl_logs` (`id`, `timein`, `timeout`, `logdate`, `empid`, `siteid`) VALUES (NULL, '$time', '', '$date', '$emplogid', '$site')";
 		
 		if($conn->query($sqladdlog) ===TRUE){
 					 $_SESSION['success'] = 'Successfuly Time In: '.$emplogid;

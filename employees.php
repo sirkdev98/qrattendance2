@@ -276,6 +276,7 @@ if(isset($_SESSION['username'])){
 						<ul class="submenu">
 						
 							<li><a href="index.php">Dashboard</a></li>
+							<li><a href="downloadables.php">Downloadables</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">
