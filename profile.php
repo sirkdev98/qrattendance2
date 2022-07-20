@@ -391,7 +391,7 @@ $employeeid = $_GET['id'];
 									</li>
 								</ul>
 							</div>
-							
+							<a href="printidpdf.php"><button class="btn btn-success"><li class="fa fa-print"> </li>  PRINT ID</button></a>
 							
 						</div>
 					</div>
