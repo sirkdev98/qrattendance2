@@ -429,6 +429,8 @@ if(isset($_SESSION['username'])){
 	<?php 
 						if (isset($_POST['addemployee'])) {
 
+  // GET THE LAST ID MAKE SURE IN TABLE YOU 9991
+
 							$fname = $_POST['fname'];
 							$mname = $_POST['mname'];
 							$lname = $_POST['lname'];
@@ -440,7 +442,7 @@ if(isset($_SESSION['username'])){
 							$sql = "INSERT INTO `tbl_employees` (`empid`, `fname`, `mname`, `lname`, `gender`, `bday`, `position`, `site`) VALUES (NULL, '$fname', '$mname', '$lname', '$gender', '$bday', '$position', '$site')";
 					if ($conn->query($sql) === TRUE) {  
 
-			echo "<script type='text/javascript'>alert(\"Successfully Added \")</script>";
+			echo "<script type='text/javascript'>alert(\"Successfully Added $moth $year $newid \")</script>";
            echo "<script>window.location.href='employees.php'</script>";
 
 						}

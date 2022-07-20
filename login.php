@@ -14,7 +14,7 @@ if(isset($_SESSION['username'])){
 <head>
 	<!-- Basic Page Info -->
 	<meta charset="utf-8">
-	<title>KAISA App</title>
+	<title>LOGIN - ATTENDANCE</title>
 
 	<!-- Site favicon -->
 	<link rel="apple-touch-icon" sizes="180x180" href="vendors/images/kaisa.ico">
@@ -50,7 +50,7 @@ if(isset($_SESSION['username'])){
 				<div class="col-md-12 col-lg-5">
 					<div class="login-box bg-white box-shadow border-radius-10">
 						<div class="login-title">
-							<h2 class="text-center text-primary">Login Kaisa App</h2>
+							<h2 class="text-center text-primary">App</h2>
 						</div>
 						 <form class="login-form" action="" method="post">
 							<?php echo $usernameErr; ?>

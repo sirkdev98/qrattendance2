@@ -59,6 +59,7 @@ ON tbl_logs.empid = tbl_employees.empid WHERE tbl_logs.siteid = '$site' AND tbl_
                          <td>'.$row["lname"].'</td> 
                         
                          <td>'.$row["position"].'</td>
+                         <td>'.$row["logdate"].'</td>
                          <td>'.$row["timein"].'</td>   
                          <td>'.$row["timeout"].'</td>  
                   

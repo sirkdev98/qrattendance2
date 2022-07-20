@@ -356,7 +356,10 @@ $employeeid = $_GET['id'];
 								</div>
 							</div>
  -->
-							<?php	$sql ="SELECT * FROM `tbl_employees`";
+							<?php	
+								$empidget = $_GET['id'];
+
+							$sql ="SELECT * FROM `tbl_employees` where empid = $empidget";
                            $query = $conn->query($sql);
                            while ($row = $query->fetch_assoc()){
 
@@ -391,7 +394,7 @@ $employeeid = $_GET['id'];
 									</li>
 								</ul>
 							</div>
-							<a href="printidpdf.php"><button class="btn btn-success"><li class="fa fa-print"> </li>  PRINT ID</button></a>
+							<a href="printidpdf.php?empid=<?php echo $empid; ?>"><button class="btn btn-success"><li class="fa fa-print"> </li>  PRINT ID</button></a>
 							
 						</div>
 					</div>
